@@ -1,5 +1,4 @@
 const Pool = require('pg').Pool
-const util = require('util')
 const pool = new Pool({
   user: 'me',
   host: 'localhost',

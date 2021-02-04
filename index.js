@@ -2,9 +2,16 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const db = require('./queries')
+const ejs = require('ejs')
+const path = require('path');
+const connect = require('connect');
+const methodOverride = require('method-override');
 const port = 3000
 
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json())
+app.use( methodOverride('_method') );
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -16,8 +23,10 @@ app.get('/', (request, response) => {
 })
 
 app.get('/users', db.getUsers)
-app.get('/users/:id', db.getUserById)
-app.post('/users', db.createUser)
+//app.get('/users/:id', db.getUserById)
+app.get('/users/new', db.getCreateUser)
+//app.post('/users/new', db.postCreateUser)
+app.post('/users/new', db.createUser)
 app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 

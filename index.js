@@ -23,11 +23,10 @@ app.get('/', (request, response) => {
 })
 
 app.get('/users', db.getUsers)
-//app.get('/users/:id', db.getUserById)
+app.get('/users/edit/:id', db.getUserById)
 app.get('/users/new', db.getCreateUser)
-//app.post('/users/new', db.postCreateUser)
 app.post('/users/new', db.createUser)
-app.put('/users/:id', db.updateUser)
+app.put('/users/edit/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 
 app.listen(port, () => {

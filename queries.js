@@ -10,6 +10,7 @@ const pool = new Pool({
   port: 5432,
 })
 
+//ユーザ一覧
 const getUsers = (request, response) => {
   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
     if (error) {
@@ -37,20 +38,16 @@ const getUserById = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).json(results.rows)
+    //JSON表示
+    //response.status(200).json(results.rows)
+    //テキスト表示
+    response.render('edit', { users: results.rows });
   })
 }
 
 //新規ユーザ作成ページ
 const getCreateUser = (request, response) => {
   response.sendFile(path.join(__dirname, 'public/test.html'))
-}
-
-//postお試し
-const postCreateUser = (request, response) => {
-  //const  name  = request.body
-  //response.send('送信したユーザ名は' + request.body.name)
-  response.status(201).send(request.body)
 }
 
 const createUser = (request, response) => {
@@ -100,7 +97,6 @@ module.exports = {
   getUsers,
   getUserById,
   getCreateUser,
-  postCreateUser,
   createUser,
   updateUser,
   deleteUser,
